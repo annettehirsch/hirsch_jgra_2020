@@ -13,11 +13,11 @@ Scripts used to prepare the data
 
     process_wrfout_EF.pbs - to process the wrfout model output files
     process_lisout_EF.pbs - to process the lisout model output files
+    retrieve_advection_at_level.ipynb - Extract low-level advection and omega from the model outputs
 
 Notebooks to plot results:
 
     create_ef_forcing.ipynb - Visualisation of the forcing location and timing
-    retrieve_advection_at_level.ipynb - Extract low-level advection and omega from the model outputs
     plot_AWAP.ipynb - Plots the observed summertime temperature time series 
     plot_ef_daily_evolution.ipynb - Plot time series for the seeded regions for different experiments and variables
     check_circulation.ipynb - plot the atmospheric vertical profile time series for different experiments and variables
