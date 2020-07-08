@@ -1,0 +1,37 @@
+#!/bin/bash
+#PBS -P w97
+#PBS -q normal
+#PBS -l walltime=1:00:00,mem=5GB
+#PBS -l wd
+#PBS -l ncpus=1
+#PBS -l storage=gdata/hh5
+
+module purge
+module load pbs dot
+module use /g/data3/hh5/public/modules
+module load conda/analysis3
+module load nco
+
+#EXPERIMENTS=( "CTL_BS_30YR" "EF_BS_1" "EF_BS_2" "EF_BS_3" "EF_BS_4" "EF_BS_5" )
+#EXPERIMENTS=( "NOSEED_EF_BS_1" "NOSEED_EF_BS_2" "NOSEED_EF_BS_3" "NOSEED_EF_BS_4" "NOSEED_EF_BS_5" )
+#EXPERIMENTS=( "CTL_BNE_ADIABATIC" "CTL_BNE_DIABATIC" "CTL_MEL" "CTL_PERTH" )
+EXPERIMENTS=( "EF_BNE_ADIA_1" "EF_BNE_ADIA_2" "EF_BNE_ADIA_3" "EF_BNE_ADIA_4" "EF_BNE_ADIA_5" "EF_BNE_DIA_1" "EF_BNE_DIA_2" "EF_BNE_DIA_3" "EF_BNE_DIA_4" "EF_BNE_DIA_5" "EF_BS_1" "EF_BS_2" "EF_BS_3" "EF_BS_4" "EF_BS_5" "EF_MEL_1" "EF_MEL_2" "EF_MEL_3" "EF_MEL_4" "EF_MEL_5" "EF_PERTH_1" "EF_PERTH_2" "EF_PERTH_3" "EF_PERTH_4" "EF_PERTH_5" )
+
+DATADIR="/g/data/hh5/tmp/WRF-CABLE/AUS44/"
+OUTDIR="${DATADIR}/postproc_BS_EF/"
+YEAR="2009"
+
+for ee in ${EXPERIMENTS[@]}; do
+
+    # Split wrfout files into daily files
+    cd "${DATADIR}/${ee}/LIS_output/"
+    mkdir -p ${OUTDIR}/${ee}
+    #filelist=`ls -1 LIS.CABLE.${YEAR}??0100.d01.nc`
+    filelist=`ls -1 LIS.CABLE.??????0100.d01.nc`
+    # Combine into one file
+    ncrcat ${filelist} ${OUTDIR}/${ee}/lishrly.nc
+
+done # for ee in ${EXPERIMENTS[@]}; do
+
+
+
